@@ -16,3 +16,20 @@ cook_book = {
     {'ingredient_name': 'Сыр гауда', 'quantity': 100, 'measure': 'г'},
     ]
   }
+dishes = 'Омлет'
+for dishes_name in cook_book:
+  if dishes == dishes_name:
+    new_book = {}
+    for ingredients in cook_book[dishes]:
+      ingredient_name = ingredients['ingredient_name']
+      quantity = ingredients['quantity']
+      measure = ingredients['measure']
+      new_book[ingredient_name]: {'measure': measure,'quantity': quantity}
+
+      print(new_book)
+
+# 'Картофель': {'measure': 'кг', 'quantity': 2}
+
+
+
+
