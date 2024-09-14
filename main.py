@@ -1,34 +1,39 @@
-cook_book = {
-  'Омлет': [
-    {'ingredient_name': 'Яйцо', 'quantity': 2, 'measure': 'шт.'},
-    {'ingredient_name': 'Молоко', 'quantity': 100, 'measure': 'мл'},
-    {'ingredient_name': 'Помидор', 'quantity': 2, 'measure': 'шт'}
-    ],
-  'Утка по-пекински': [
-    {'ingredient_name': 'Утка', 'quantity': 1, 'measure': 'шт'},
-    {'ingredient_name': 'Вода', 'quantity': 2, 'measure': 'л'},
-    {'ingredient_name': 'Мед', 'quantity': 3, 'measure': 'ст.л'},
-    {'ingredient_name': 'Соевый соус', 'quantity': 60, 'measure': 'мл'}
-    ],
-  'Запеченный картофель': [
-    {'ingredient_name': 'Картофель', 'quantity': 1, 'measure': 'кг'},
-    {'ingredient_name': 'Чеснок', 'quantity': 3, 'measure': 'зубч'},
-    {'ingredient_name': 'Сыр гауда', 'quantity': 100, 'measure': 'г'},
-    ]
-  }
-dishes = 'Омлет'
-for dishes_name in cook_book:
-  if dishes == dishes_name:
+with open('cook_book.txt', encoding="utf-8") as file:
+  cook_book = {}
+  for line in file:
+    name_dish = line.strip()
+    number_ingredients = int(file.readline())
+    products = []
+    for i in range(number_ingredients):
+      product = file.readline().strip()
+      ingredient_name, quantity, measure = product.split(' | ')
+      products.append({'ingredient': ingredient_name,
+                       'quantity': quantity,
+                       'measure': measure})
+    file.readline()
+    cook_book[name_dish] = products
+
+def get_shop_list_by_dishes(dishes, person_count):
     new_book = {}
-    for ingredients in cook_book[dishes]:
-      ingredient_name = ingredients['ingredient_name']
-      quantity = ingredients['quantity']
-      measure = ingredients['measure']
-      new_book[ingredient_name]: {'measure': measure,'quantity': quantity}
+    for dish in dishes:
+      for dishes_name in cook_book:
+        if dish in dishes_name:
+          for ingredients in cook_book[dish]:
+            ingredient_name1 = ingredients.get('ingredient')
+            quantity1 = int(ingredients.get('quantity')) * person_count
+            measure1 = ingredients.get('measure')
+            new_book1 = {ingredient_name1: {'quantity': quantity1, 'measure': measure1}}
+            new_book.update(new_book1)
+    print(new_book)
 
-      print(new_book)
+get_shop_list_by_dishes(['Запеченный картофель','Омлет'], 5)
 
-# 'Картофель': {'measure': 'кг', 'quantity': 2}
+
+
+
+
+
+
 
 
 
